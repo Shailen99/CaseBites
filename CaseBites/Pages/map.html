@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { GoogleMap, LoadScript, MarkerF, InfoWindow} from '@react-google-maps/api';
-import * as restaurantData from "./restaurants-data.json";
+//import * as restaurantData from "./restaurants-data.json";
 
 const containerStyle = {
   width: '100vw',
@@ -23,7 +23,7 @@ function MyComponent() {
         center={center}
         zoom={15}
       >
-        { /* Child components, such as markers, info windows, etc. */
+        { /* Child components, such as markers, info windows, etc. 
           {restaurantData.features.map((restuarant => (
             <MarkerF 
               key={restuarant.name} 
@@ -49,8 +49,8 @@ function MyComponent() {
             >
               <div>Restaurant Information</div>
             </InfoWindow>
-          )}
-        }
+          )}*/
+        } 
       </GoogleMap>
     </LoadScript>
   )
