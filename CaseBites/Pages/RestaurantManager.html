@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html>
+
+<html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,11 +9,38 @@
 </head>
 
 <body>
-<figure class="text-center">
-<p class="h1">Case Bites</p>
+  <!-- Navbar content -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="index.html">CaseBites</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<a href="main.html" class="link-primary">Back to Main Page</a>
-</figure>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="logIn.html">Log In</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<center><h2 class="font-weight-light">Log In to Access Your Restaurant Info</h2></center>
+<a href="index.html" class="link-primary">Back to Main Page</a>
+
+<form method="post" action="phpElements/RestaurantManagerLogIn.php">
+<input type="submit" name ="fetch" value="FETCH DATA" />
+</form>
+
+<!--
+<form action = "" method = "post">
+   <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br /><br />
+   <label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
+   <input type = "submit" value = " Submit "/><br />
+</form>-->
 
 </body>
 </html>

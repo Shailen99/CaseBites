@@ -8,18 +8,94 @@
 </head>
 
 <body>
-<figure class="text-center">
-<p class="h1">Case Bites</p>
+      <!-- Navbar content -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="index.html">CaseBites</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="logIn.html">Log In</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
 <a href="map.html" class="link-primary">Map View</a>
-<a href="RestaurantManager.html" class="link-primary">Restaurant Manager</a>
-<a href="UserProfile.html" class="link-primary">User Profile</a>
-</figure>
 
-<br>
+<!--MAP HTML-->
+import React, { useState } from 'react'
+import { GoogleMap, LoadScript, MarkerF, InfoWindow} from '@react-google-maps/api';
+import * as restaurantData from "./restaurants-data.json";
+
+const containerStyle = {
+  width: '100vw',
+  height: '100vh'
+};
+
+const center = {
+  lat: 41.507213,
+  lng: -81.606955
+};
+
+function MyComponent() {
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  return (
+    <LoadScript
+      googleMapsApiKey="AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY"
+    >
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={15}
+      >
+        { /* Child components, such as markers, info windows, etc. */
+          {restaurantData.features.map((restuarant => (
+            <MarkerF
+              key={restuarant.name}
+              position={{
+                lat: restuarant.coordinates[0],
+                lng: restuarant.coordinates[1]
+              }}
+              onClick={() => {
+                setSelectedRestaurant(restaurant);
+              }}
+            />
+          ))}
+
+          {selectedRestaurant && (
+            <InfoWindow
+              position={{
+                lat: restuarant.coordinates[0],
+                lng: restuarant.coordinates[1]
+              }}
+              onCloseClick{() => {
+                setSelectedRestaurant(null);
+              }}
+            >
+              <div>Restaurant Information</div>
+            </InfoWindow>
+          )}
+        }
+      </GoogleMap>
+    </LoadScript>
+  )
+}
+
+export default React.memo(MyComponent)
+
 <figure class="text-center">
 <a href="https://docs.google.com/document/d/1MmkaHUHXiHRYylXDWmzPE6Ddyois_VBFiCKFdttsmR0/edit" class="link-success">Tutorial links</a>
+
+
 </figure>
+
 
 
 </body>
