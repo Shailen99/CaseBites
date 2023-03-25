@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <meta charset="UTF-8">
         <meta name="viewport" content="width-device-width,
         initial-scale=1.0">
@@ -11,22 +12,76 @@
                 height:800px;
                 width:100%;
             }
+            #studentInfo {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 1;
+            }
         </style>
     </head>
+    <div class="well" id="studentInfo">
+        <h2>Your Info: <h2>
+        <div>CaseCash: $100</div>
+        <div>Portable Swipes Left: 3</div>
+        <div>Meal Swipes Left: unlimited</div> 
+        <div>Review Points: 50</div>
+    </div>
     <div id="map"></div>
     <script>
+         /*var studentInfo = '<h1>Your Info: <h1>' 
+            + '<div>CaseCash: $100</div>'
+            + '<div>Portable Swipes Left: 3/div>' 
+            + '<div>Meal Swipes Left: unlimited</div>' 
+            + '<div>Review Points: 50</div>' */
+            
         function initMap(){
             var options = {
-                zoom:14,
+                zoom:15,
                 center: {lat:41.507213,lng:-81.606955}
             }
-
+            //creates the map
             var map = new google.maps.Map(document.getElementById('map'), options);
+            
+            //student info window
+
+            //this info should come from the restaurant database, then we just add each restaurant
+            //info for Jolly Scholar is made up
+            addMarker({
+                coords:{lat:41.506802,lng:-81.608162},
+                content:
+                    '<h1>Jolly Scholar</h1>'
+                     +'<div>Hours: 11am - 5pm</div>'
+                     + '<div>Payment Options: Portable Swipes, Case Cash, Cash</div>'
+                     + '<div>Popular Items: Burger</div>'
+                     + '<div>Est. Wait Time: 30mins</div>'
+            });
+
+            // Add Marker Function
+            function addMarker(props){
+                var marker = new google.maps.Marker({
+                position: props.coords,
+                map:map
+            })
+                //sets icon image
+                if(props.iconImage){
+                    marker.setIcon(props.iconImage);
+                }
+                // sets content for info window
+                if(props.content) {
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: props.content
+                    });
+
+                    marker.addListener('click', function() {
+                        infoWindow.open(map, marker);
+                    });
+                }
+            }
         }
     </script>
   
     <script async
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY&callback=initMap">
     </script>
-  </body>
 </html>
