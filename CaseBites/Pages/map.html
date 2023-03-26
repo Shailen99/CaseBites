@@ -38,7 +38,17 @@
         function initMap(){
             var options = {
                 zoom:15,
-                center: {lat:41.507213,lng:-81.606955}
+                center: {lat:41.507213,lng:-81.606955},
+                //Hide Default Google Maps Icons
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [
+                            { visibility: "off" }
+                        ]
+                    }
+                ]
             }
             //creates the map
             var map = new google.maps.Map(document.getElementById('map'), options);
@@ -47,15 +57,45 @@
 
             //this info should come from the restaurant database, then we just add each restaurant
             //info for Jolly Scholar is made up
+            //Added a couple more examples and included custom icons.
             addMarker({
                 coords:{lat:41.506802,lng:-81.608162},
                 content:
                     '<h1>Jolly Scholar</h1>'
                      +'<div>Hours: 11am - 5pm</div>'
-                     + '<div>Payment Options: Portable Swipes, Case Cash, Cash</div>'
+                     + '<div>Payment Options: Portable Swipes, Case Cash, USD</div>'
                      + '<div>Popular Items: Burger</div>'
-                     + '<div>Est. Wait Time: 30mins</div>'
+                     + '<div>Est. Wait Time: 30mins</div>',
+                iconImage: 'https://drive.google.com/uc?export=view&id=1LQjQXTfLJrq-jAOUpubtP5OLWpiXeLKC'
             });
+
+            addMarker({
+                coords:{lat:41.50111,lng:-81.60268},
+                content:
+                    '<h1>Fribley Commons</h1>'
+                     +'<div>Hours: 7:30am - 8pm</div>'
+                     + '<div>Payment Options: Regular Swipe</div>'
+                     + '<div>Popular Items: Rotating Menu</div>'
+                     + '<div>Est. Wait Time: 2mins</div>',
+                iconImage: 'https://drive.google.com/uc?export=view&id=1LQjQXTfLJrq-jAOUpubtP5OLWpiXeLKC'
+            });
+
+            addMarker({
+                coords:{lat:41.509466,lng:-81.604695},
+                content:
+                    '<h1>Bibibop</h1>'
+                     +'<div>Hours: 10:30am - 9pm</div>'
+                     + '<div>Payment Options: Case Cash, USD</div>'
+                     + '<div>Popular Items: Chicken Bowl</div>'
+                     + '<div>Est. Wait Time: 5mins</div>',
+                iconImage: 'https://drive.google.com/uc?export=view&id=1uF43B7_YICOMhdUJXjNdVoedqYDUSzSx'
+            });
+            
+            /*ICON URLS:
+            Meal Swipe: https://drive.google.com/uc?export=view&id=1LQjQXTfLJrq-jAOUpubtP5OLWpiXeLKC
+            Case Cash: https://drive.google.com/uc?export=view&id=1uF43B7_YICOMhdUJXjNdVoedqYDUSzSx
+            USD: https://drive.google.com/uc?export=view&id=1RdcRvyqDsj8I_GodJj7FXEcFyv2K6EX6
+            */
 
             // Add Marker Function
             function addMarker(props){
