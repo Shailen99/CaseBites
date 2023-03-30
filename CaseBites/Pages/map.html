@@ -8,20 +8,33 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>My Google Maps</title>
         <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #333;
+            }
             #map{
                 height:800px;
                 width:100%;
             }
             #studentInfo {
-                position: absolute;
+                position: absolute;      
                 top: 0;
                 right: 0;
                 z-index: 1;
+                margin: 20px auto;
+                border: 1px solid #ccc;
+                padding: 20px;
+                background-color: white;
+            }
+            #header {
+                padding: 10px;
+                text-align: center;
+                font-size: 24px;
             }
         </style>
     </head>
     <div class="well" id="studentInfo">
-        <h2>Your Info: <h2>
+        <div id="header">Your Info</div>
         <div>CaseCash: $100</div>
         <div>Portable Swipes Left: 3</div>
         <div>Meal Swipes Left: unlimited</div> 
@@ -29,11 +42,6 @@
     </div>
     <div id="map"></div>
     <script>
-         /*var studentInfo = '<h1>Your Info: <h1>' 
-            + '<div>CaseCash: $100</div>'
-            + '<div>Portable Swipes Left: 3/div>' 
-            + '<div>Meal Swipes Left: unlimited</div>' 
-            + '<div>Review Points: 50</div>' */
             
         function initMap(){
             var options = {
