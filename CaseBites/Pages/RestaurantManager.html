@@ -1,15 +1,11 @@
+
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Restaurant Management</title>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
-
 </head>
 
 <body>
@@ -32,41 +28,19 @@
     </div>
   </nav>
 
-<center><h2 class="font-weight-light">Log In to Access Your Restaurant Information</h2></center>
+<center><h2 class="font-weight-light">Log In to Access Your Restaurant Info</h2></center>
 <a href="index.html" class="link-primary">Back to Main Page</a>
 
-<form action = "phpElements/RestaurantManagerLogIn.php" method = "post" name = "logIn">
-   <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br /><br />
-   <label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
-   <input type = "submit" value = " Submit " onclick="checkEmpty()"/><br />
+<form method="post" action="phpElements/RestaurantManagerLogIn.php">
+<input type="submit" name ="fetch" value="FETCH DATA" />
 </form>
 
-
-
-<script>
-/*
-//Check if either username or password are empty input fields
-function checkEmpty()
-{
-
-  //get username and password vars
-  var username = document.forms["logIn"]["username"].value;
-  var password = document.forms["logIn"]["password"].value;
-
-  if(username == null || username == "" || password == null || password == "")
-  {
-
-    alert("Please reenter username and password, they can't be left empty");
-    //Call toastr error
-    //Need to build toastr error
-  }
-  else {
-    //Run php page
-    window.location.assign("phpElements/RestaurantManagerLogIn.php");
-  }
-}*/
-
-</script>
+<!--
+<form action = "" method = "post">
+   <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br /><br />
+   <label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
+   <input type = "submit" value = " Submit "/><br />
+</form>-->
 
 </body>
 </html>
