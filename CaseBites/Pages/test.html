@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+      Bootstrap Booking Form
+  </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type = "text/JavaScript" src="https://MomentJS.com/downloads/moment.js"></script>
+    <style>
+    div h1 {
+      color: red;
+    }
+
+    body {
+    margin: 1rem;
+    }
+    #SubmissionButtons {
+    float: right;
+    padding-right: 4rem;
+    margin-top: -0.5rem;
+    }
+
+    #SubmissionButtons button {
+    padding: 1rem 10rem;
+    }
+    .error {
+    outline: 2px solid red;
+  }
+    </style>
+</head>
+<body>
+    <div class="fluid-container">
+      <h1 class="font-weight-bold"> Bootstrap Booking Form: [Shailen Sheth]</h1>
+          <div class="well">
+          Fill out the form and hit the submit button when complete...
+          </div>
+      <form>
+        <!--Content of Booking Form -->
+            <div class="row">
+                <div class="col-sm-6">
+                  <!--User Panel -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">User:</div>
+                        <div class="panel-body" id="info">
+                          <!--Username -->
+                            <div class="row">
+                                <div class="flex-column col-sm-2">
+                                    <label id="name-prompt">Username:</label>
+                                </div>
+                                <div class="flex-column col-sm-10">
+                                    <input class="form-control" type="text" id="userName" placeholder="Type username..." value="">
+                                </div>
+                            </div>
+                            <!--FirstName -->
+                            <div class="row">
+                                <div class="flex-column col-sm-2">
+                                    <label id="name-prompt">First Name:</label>
+                                </div>
+                                <div class="flex-column col-sm-10">
+                                    <input class="form-control" type="text" id="first_name" placeholder="Type first name..." value="">                                </div>
+                            </div>
+                            <!--LastName -->
+                            <div class="row">
+                                <div class="flex-column col-sm-2">
+                                    <label id="name-prompt">Last Name:</label>
+                                </div>
+                                <div class="flex-column col-sm-10">
+                                    <input class="form-control" type="text" id="last_name" placeholder="Type last name..." value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Contact Panel -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Contact:</div>
+                        <div class="panel-body">
+                                <div class="input-group">
+                                  <!--Phone number -->
+                                    <span class="input-group-addon"><i class="fa-solid fa-phone"></i></span>
+                                    <input class="form-control" type="text" id="phone_number" placeholder="Type phone#..."><br>
+                                </div>
+                                <div class="input-group">
+                                  <!--Fax number -->
+
+                                    <span class="input-group-addon"><i class="fa-solid fa-fax"></i></span>
+                                    <input class="form-control" type="text" id="fax_number" placeholder="Type fax#..."><br>
+                                </div>
+                                <div class="input-group">
+                                  <!--Email Address -->
+                                    <span class="input-group-addon"><i class="fa-sharp fa-solid fa-envelope"></i></span>
+                                    <input class="form-control" type="text" id="email" placeholder="Type email...">
+                                </div>
+                        </div>
+                    </div>
+                    <!--Schedule Panel -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Schedule:</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                              <!--Adult Counter -->
+
+                                <label for="adults">Adults:</label>
+                                <select name="adultCounter" class="form-control" id="adults" value=1>
+                                    <option value=1>1</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                              <!--Check In Date -->
+
+                                <div class="form-group">
+                                    <label for="checkIn">Check-In:</label>
+                                    <input class="form-control" type="date" id="checkIn" min="">
+                                </div>
+                                <!--Day Calculator -->
+
+                                <div class="form-group">
+                                    <label for="days">Days:</label>
+                                    <input class="form-control" type="text" id="days" placeholder="Displays days..." value="" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                  <!--Check Out Date -->
+
+                                    <label for="checkOut">Check-Out:</label>
+                                    <input class="form-control" type="date" id="checkOut" min="">
+                                </div>
+                                <!--Cost Calculator -->
+
+                                <div class="form-group">
+                                    <label for="cost">Cost($):</label>
+                                    <input class="form-control" type="text" id="cost" placeholder="Displays cost..." value="" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Other Panel -->
+
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Other:</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                              <!--Message Text Area -->
+
+                                <label for="message">Message:</label>
+                                <textarea class="form-control" type="text" id="message" rows=22 placeholder="Type message here..." value=""></textarea>
+                            </div>
+                            <div class="form-group">
+                              <!--Range -->
+
+                                <label for="range">Range:</label>
+                                <input class="form-control" type="range" id="range" min="0" max="10" value="4" step="1" value=5>
+                            </div>
+                            <!--Radio for Priority -->
+
+                            <div class="form-group">
+                                <input type="radio" id="low" value="low" name="priority" checked>
+                                <label for="low">Low</label>
+                                <input type="radio" id="med" value="med" name="priority">
+                                <label for="low">Med</label>
+                                <input type="radio" id="high" name="priority" value="high">
+                                <label for="low">High</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div id="SubmissionButtons">
+                <button id="reset" class="btn btn-primary"><i class="fa-solid fa-eraser"></i>Reset</button>
+                <button id="submit" class="btn btn-success" form="form"><i class="fa-sharp fa-solid fa-paper-plane"></i>Submit</button>
+            </div>
+        </div>
+    </div>
+<script>
+let userName = document.getElementById('userName');
+let firstName = document.getElementById('first_name');
+let lastName = document.getElementById('last_name');
+
+let phoneNum = document.getElementById('phone_number');
+let faxNum = document.getElementById('fax_number');
+let emailAddress = document.getElementById('email');
+
+let checkInDate = document.getElementById('checkIn');
+checkInDate.min = moment(new Date()).format('YYYY-MM-DD');
+
+let checkOutDate = document.getElementById('checkOut');
+checkOutDate.min = moment(checkIn.min, 'YYYY-MM-DD').add(1, 'days').format('YYYY-MM-DD');
+
+let dayCount = document.getElementById("days");
+let adultCount = document.getElementById("adults");
+let costCount = document.getElementById("cost");
+
+let message = document.getElementById('message');
+
+
+const inputs = [userName, firstName, lastName, phoneNum, faxNum, emailAddress, checkInDate, checkOutDate, dayCount, costCount];
+const names = ['userName', 'First Name', 'Last Name', 'Phone Number', 'Fax Number', 'Email Address', 'Check-In Date', 'Check-Out Date',
+                    'Days', 'Cost']
+
+
+let range = document.getElementById('range');
+let low = document.getElementById('low');
+let med = document.getElementById('med');
+let high = document.getElementById('high');
+let reset = document.getElementById('reset');
+let submit = document.getElementById('submit')
+
+<!-- Use to get Adult count -->
+for(let x = 2; x <= 10; x++) {
+    adultCount.innerHTML += '<option value=' + x + '>' + x + '</option>';
+}
+<!--Calculate days and cost with this-->
+
+checkInDate.onchange = function() {
+    checkOutDate.min = moment(checkInDate.value, 'YYYY-MM-DD').add(1, 'days').format('YYYY-MM-DD');
+    if (moment(checkInDate.value, 'YYYY-MM-DD') > moment(checkOutDate.value, 'YYYY-MM-DD')) {
+        checkOutDate.value = "";
+    }
+    if(checkOut.value != "") {
+        dayCount.value = moment(checkOutDate.value, 'YYYY-MM-DD').diff(moment(checkInDate.value, 'YYYY-MM-DD'), 'days');
+    }
+    else {
+        dayCount.value = "";
+        costCount.value = "";
+    }
+    if(days.value != "") {
+        costCount.value = dayCount.value * adultCount.value * 150;
+    }
+}
+
+checkOutDate.onchange = function () {
+    if (checkInDate.value != "") {
+        dayCount.value = moment(checkOutDate.value, 'YYYY-MM-DD').diff(moment(checkInDate.value, 'YYYY-MM-DD'), 'days');
+    }
+    if(dayCount.value != "") {
+        costCount.value = dayCount.value * adultCount.value * 150;
+    }
+}
+
+adults.onchange = function () {
+    if(days.value != "") {
+        cost.value = days.value * adults.value * 150;
+    }
+};
+
+$('#reset').on('click', function() {
+    for(let i = 0; i < inputs.length; i++) {
+        inputs[i].value = "";
+        inputs[i].parentElement.classList.remove('has-error');
+    }
+    adults.value = 1;
+    range.value = 5;
+    low.checked = true;
+    med.checked = false;
+    high.checked = false;
+    toastr.info('Form has been reset.');
+});
+
+$('#submit').on('click', function() {
+    let counter = 0;
+    for(let x = 0; x < inputs.length; x++) {
+        if(inputs[x].value == "" & x!= 8 & x != 9) {
+            if(x < 6 | x == 10) {
+                inputs[x].parentElement.classList.add('has-error');
+            }
+            counter++;
+            toastr.options = {
+                "newestOnTop": false,
+                "positionClass": "toast-top-right"
+            }
+            toastr.error('Error: ' + names[x] + ' input has not filled in.');
+        }
+        else if(x < 6 | x == 10) {
+            inputs[x].parentElement.classList.remove('has-error');
+        }
+    }
+    if(cost.value < 0 | cost.value == "") {
+        toastr.error('Error: Price must be positive.');
+    }
+    else if(counter == 0) {
+        toastr.options = {
+            "positionClass": "toast-top-right"
+        }
+        toastr.success('Form has been submitted');
+    }
+});
+</script>
+</body>
+
+</html>

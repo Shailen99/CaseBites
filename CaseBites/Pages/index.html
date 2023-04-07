@@ -5,22 +5,154 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CaseBites</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<style>
+
+
+    body {
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+    #map{
+        height:800px;
+        width:100%;
+    }
+    #studentInfo {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        padding: 20px;
+        background-color: white;
+    }
+    #header {
+        padding: 10px;
+        text-align: center;
+        font-size: 24px;
+    }
+</style>
+
 </head>
 
 <body>
-<figure class="text-center">
-<p class="h1">Case Bites</p>
+      <!-- Navbar content -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="index.html">CaseBites</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-<a href="map.html" class="link-primary">Map View</a>
-<a href="RestaurantManager.html" class="link-primary">Restaurant Manager</a>
-<a href="UserProfile.html" class="link-primary">User Profile</a>
-</figure>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="logIn.html">Log In</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="well" id="studentInfo">
+          <div id="header">Your Info</div>
+          <div>CaseCash: $100</div>
+          <div>Portable Swipes Left: 3</div>
+          <div>Meal Swipes Left: unlimited</div>
+          <div>Review Points: 50</div>
+      </div>
+      <div id="map"></div>
+      <script>
 
-<br>
-<figure class="text-center">
-<a href="https://docs.google.com/document/d/1MmkaHUHXiHRYylXDWmzPE6Ddyois_VBFiCKFdttsmR0/edit" class="link-success">Tutorial links</a>
-</figure>
+          function initMap(){
+              var options = {
+                  zoom:15,
+                  center: {lat:41.507213,lng:-81.606955},
+                  //Hide Default Google Maps Icons
+                  styles: [
+                      {
+                          featureType: "poi",
+                          elementType: "labels",
+                          stylers: [
+                              { visibility: "off" }
+                          ]
+                      }
+                  ]
+              }
+              //creates the map
+              var map = new google.maps.Map(document.getElementById('map'), options);
 
+              //student info window
+
+              //this info should come from the restaurant database, then we just add each restaurant
+              //info for Jolly Scholar is made up
+              //Added a couple more examples and included custom icons.
+              addMarker({
+                  coords:{lat:41.506802,lng:-81.608162},
+                  content:
+                      '<h1>Jolly Scholar</h1>'
+                       +'<div>Hours: 11am - 5pm</div>'
+                       + '<div>Payment Options: Portable Swipes, Case Cash, USD</div>'
+                       + '<div>Popular Items: Burger</div>'
+                       + '<div>Est. Wait Time: 30mins</div>',
+                  iconImage: 'https://drive.google.com/uc?export=view&id=1LQjQXTfLJrq-jAOUpubtP5OLWpiXeLKC'
+              });
+
+              addMarker({
+                  coords:{lat:41.50111,lng:-81.60268},
+                  content:
+                      '<h1>Fribley Commons</h1>'
+                       +'<div>Hours: 7:30am - 8pm</div>'
+                       + '<div>Payment Options: Regular Swipe</div>'
+                       + '<div>Popular Items: Rotating Menu</div>'
+                       + '<div>Est. Wait Time: 2mins</div>',
+                  iconImage: 'https://drive.google.com/uc?export=view&id=1LQjQXTfLJrq-jAOUpubtP5OLWpiXeLKC'
+              });
+
+              addMarker({
+                  coords:{lat:41.509466,lng:-81.604695},
+                  content:
+                      '<h1>Bibibop</h1>'
+                       +'<div>Hours: 10:30am - 9pm</div>'
+                       + '<div>Payment Options: Case Cash, USD</div>'
+                       + '<div>Popular Items: Chicken Bowl</div>'
+                       + '<div>Est. Wait Time: 5mins</div>',
+                  iconImage: 'https://drive.google.com/uc?export=view&id=1uF43B7_YICOMhdUJXjNdVoedqYDUSzSx'
+              });
+
+              /*ICON URLS:
+              Meal Swipe: https://drive.google.com/uc?export=view&id=1LQjQXTfLJrq-jAOUpubtP5OLWpiXeLKC
+              Case Cash: https://drive.google.com/uc?export=view&id=1uF43B7_YICOMhdUJXjNdVoedqYDUSzSx
+              USD: https://drive.google.com/uc?export=view&id=1RdcRvyqDsj8I_GodJj7FXEcFyv2K6EX6
+              */
+
+              // Add Marker Function
+              function addMarker(props){
+                  var marker = new google.maps.Marker({
+                  position: props.coords,
+                  map:map
+              })
+                  //sets icon image
+                  if(props.iconImage){
+                      marker.setIcon(props.iconImage);
+                  }
+                  // sets content for info window
+                  if(props.content) {
+                      var infoWindow = new google.maps.InfoWindow({
+                          content: props.content
+                      });
+
+                      marker.addListener('click', function() {
+                          infoWindow.open(map, marker);
+                      });
+                  }
+              }
+          }
+      </script>
+
+      <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY&callback=initMap">
+      </script>
 
 </body>
 </html>
