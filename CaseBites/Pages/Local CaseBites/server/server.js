@@ -1,0 +1,73 @@
+const express = require('express');
+const cors = require('cors');
+const { connectToDatabase } = require('./db');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(cors());
+
+// Use bodyParser middleware to parse JSON request bodies
+app.use(bodyParser.json());
+
+app.post('/validateUser', async (req, res) => {
+  try {
+    const database = await connectToDatabase();
+    // Make sure the database object is defined before accessing it
+    if (database) {
+      const user = {
+        _name: req.body._name,
+        _pass: req.body._pass
+      };
+
+      const result = await database.collection('UserInformation').findOne(user);
+      if (result) {
+        return res.status(200).send('Login successful');
+      }
+      else {
+        return res.status(401).send("Invalid credentials");
+      }
+    } 
+    else {
+      res.status(500).send('Database connection error');
+    }
+  } 
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+});
+
+app.post('/addUser', async (req, res) => {
+  try {
+    if (!req.body) {
+      res.status(400).send('Invalid request body');
+      return;
+    }
+    
+    const user = {
+      _name: req.body._name,
+      _pass: req.body._pass
+    };
+
+    const database = await connectToDatabase();
+
+    // if the username is already taken, don't add the new user
+    const existingUsername = await database.collection('UserInformation').findOne({ _name: user._name });
+    if (existingUsername) {
+      return res.status(409).send('Username already exists');
+    }
+    
+    const result = await database.collection('UserInformation').insertOne(user);
+    console.log(`Added user with ID: ${result.insertedId}`);
+    
+    res.status(200).send('User added successfully');
+  } 
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
