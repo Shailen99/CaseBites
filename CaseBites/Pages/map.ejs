@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width,
+        initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>My Google Maps</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #333;
+            }
+            #map{
+                height:800px;
+                width:100%;
+            }
+            #studentInfo {
+                position: absolute;      
+                top: 0;
+                right: 0;
+                z-index: 1;
+                margin: 20px auto;
+                border: 1px solid #ccc;
+                padding: 20px;
+                background-color: white;
+            }
+            #header {
+                padding: 10px;
+                text-align: center;
+                font-size: 24px;
+            }
+        </style>
+    </head>
+    <div class="well" id="studentInfo">
+        <div id="header">Your Info</div>
+        <div>CaseCash: 100</div>
+        <div>Portable Swipes Left: 3</div>
+        <div>Meal Swipes Left: unlimited</div> 
+        <div>Review Points: 50</div>
+    </div>
+    <div id="map"></div>
+    <div id="data"><%= JSON.stringify(data) %></div>
+
+    <script>
+
+        var data = JSON.parse(document.getElementById('data').innerHTML);
+        function initMap(){
+            var options = {
+                zoom:15,
+                center: {lat:41.507213,lng:-81.606955},
+                //Hide Default Google Maps Icons
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [
+                            { visibility: "off" }
+                        ]
+                    }
+                ]
+            }
+            //creates the map
+            var map = new google.maps.Map(document.getElementById('map'), options);
+            
+            
+            
+            function addMarker(name, location, payOptions, hours, popItems, waitTime){
+                const iconImage = ''; //iconImage will be replaced by paramter coming from database
+                const coords = location;
+                const [lat, lng] = coords.split(", ");
+                const formattedCoords = { lat: Number(lat), lng: Number(lng) };
+                location = formattedCoords;
+
+
+                var marker = new google.maps.Marker({
+                position: location,
+                map:map
+            })
+                
+                const contentString = `<div>
+                    <h1>${name}</h1>
+                    <p>Payment Options: ${payOptions}</p>
+                    <p>Hours: ${hours}</p>
+                    <p>Popular Items: ${popItems}</p>
+                    <p>Est. Wait Time: ${waitTime}</p>
+                </div>`;
+
+                if(iconImage){ //this will recognize if there is an image and set it
+                      marker.setIcon(iconImage);
+                  }
+                var infoWindow = new google.maps.InfoWindow({
+                        content: contentString
+                });
+
+                marker.addListener('click', function() {
+                    infoWindow.open(map, marker);
+                });
+            }
+            /* 
+            addMarker({
+                  coords:{lat:41.506802,lng:-81.608162},
+                  content:
+                      '<h1>Jolly Scholar</h1>'
+                       +'<div>Hours: 11am - 5pm</div>'
+                       + '<div>Payment Options: Portable Swipes, Case Cash, USD</div>'
+                       + '<div>Popular Items: Burger</div>'
+                       + '<div>Est. Wait Time: 30mins</div>',
+                  iconImage: 'https://drive.google.com/uc?export=view&id=1LQjQXTfLJrq-jAOUpubtP5OLWpiXeLKC'
+            });
+            */  
+            data.forEach(restaurant =>{
+                addMarker(
+                    restaurant.name,
+                    restaurant.location,
+                    restaurant.payOptions,
+                    restaurant.hours,
+                    restaurant.popItems,
+                    restaurant.waitTime
+                )
+            })
+            
+        }
+    </script>
+  
+    <script async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY&callback=initMap">
+    </script>
+</html>
