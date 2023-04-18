@@ -35,10 +35,10 @@
     </head>
     <div class="well" id="studentInfo">
         <div id="header">Your Info</div>
-        <div>CaseCash: 100</div>
-        <div>Portable Swipes Left: 3</div>
-        <div>Meal Swipes Left: unlimited</div> 
-        <div>Review Points: 50</div>
+        <div>CaseCash: <%=caseCash %></div>
+        <div>Portable Swipes Left: <%=portSwipes %></div>
+        <div>Meal Swipes Left: <%=mealSwipes %></div> 
+        <div>Review Points: <%=reviewPoints %></div>
     </div>
     <div id="map"></div>
     <div id="data" style="display:none;"><%= JSON.stringify(data) %></div>
@@ -64,11 +64,9 @@
             //creates the map
             var map = new google.maps.Map(document.getElementById('map'), options);
             
-            
-            
-            function addMarker(name, location, payOptions, hours, popItems, waitTime){
-                const iconImage = ''; //iconImage will be replaced by paramter coming from database
+            function addMarker(name, location, payOptions, hours, popItems, waitTime, img){
                 const coords = location;
+                img = img.replace(/&amp;/g, "&");
                 const [lat, lng] = coords.split(", ");
                 const formattedCoords = { lat: Number(lat), lng: Number(lng) };
                 location = formattedCoords;
@@ -76,7 +74,8 @@
 
                 var marker = new google.maps.Marker({
                 position: location,
-                map:map
+                map:map,
+                icon: img
             })
                 
                 const contentString = `<div>
@@ -87,9 +86,6 @@
                     <p>Est. Wait Time: ${waitTime}</p>
                 </div>`;
 
-                if(iconImage){ //this will recognize if there is an image and set it
-                      marker.setIcon(iconImage);
-                  }
                 var infoWindow = new google.maps.InfoWindow({
                         content: contentString
                 });
@@ -98,18 +94,7 @@
                     infoWindow.open(map, marker);
                 });
             }
-            /* 
-            addMarker({
-                  coords:{lat:41.506802,lng:-81.608162},
-                  content:
-                      '<h1>Jolly Scholar</h1>'
-                       +'<div>Hours: 11am - 5pm</div>'
-                       + '<div>Payment Options: Portable Swipes, Case Cash, USD</div>'
-                       + '<div>Popular Items: Burger</div>'
-                       + '<div>Est. Wait Time: 30mins</div>',
-                  iconImage: 'https://drive.google.com/uc?export=view&id=1LQjQXTfLJrq-jAOUpubtP5OLWpiXeLKC'
-            });
-            */  
+  
             data.forEach(restaurant =>{
                 addMarker(
                     restaurant.name,
@@ -117,14 +102,14 @@
                     restaurant.payOptions,
                     restaurant.hours,
                     restaurant.popItems,
-                    restaurant.waitTime
+                    restaurant.waitTime,
+                    restaurant.img
                 )
-            })
-            
+            })   
         }
     </script>
   
     <script async
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY&callback=initMap">
     </script>
 </html>

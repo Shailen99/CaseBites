@@ -6,7 +6,7 @@ const app = express();
 
 
 app.get('/', async (req, res) => {
-    const uri = 'mongodb+srv://RestaurantAdmin:CaseBite123@casebites.rejmzyj.mongodb.net/test';
+    const uri = "mongodb+srv://RestaurantAdmin:CaseBite123@casebites.rejmzyj.mongodb.net/test";
     const client = new MongoClient(uri, { useNewUrlParser: true });
 
     app.engine('html', require('ejs').renderFile);
@@ -18,22 +18,37 @@ app.get('/', async (req, res) => {
         await client.connect();
         console.log('Connected to MongoDB');
     
-        const collection = client.db('CaseBites').collection('RestaurantsInfo');
-        const cursor = collection.find();
+        const RestaurantsInfo = client.db('CaseBites').collection('RestaurantsInfo');
+        const restaurant = RestaurantsInfo.find();
         const data = [];
-        await cursor.forEach((document) => {
+        await restaurant.forEach((document) => {
           data.push({
             name: document.name,
             location: document.location,
             payOptions: document.payOptions,
             hours: document.hours ,
             popItems: document.popItems,
-            waitTime: document.waitTime
+            waitTime: document.waitTime,
+            img: document.img
           });
         });
-        console.log(data);
-        res.render(path.join(__dirname+'/map.ejs'),{data:data});
-        // The "data" variable is passed to the "index" template file
+        
+        const UserInformation = client.db('CaseBites').collection('UserInformation');
+        const User = UserInformation.find();
+        
+        //these constants will be filled by the users information
+        const caseCash = 150;
+        const portSwipes = 3;
+        const mealSwipes = "unlimited";
+        const reviewPoints = 100;
+        res.render(path.join(__dirname+'/map.ejs'),{
+          data:data, 
+          caseCash:caseCash, 
+          portSwipes:portSwipes,
+          mealSwipes:mealSwipes,
+          reviewPoints:reviewPoints
+        });
+        // The "data" variable is passed to the "map" template file
         } catch (error) {
             console.error(`Error: ${error}`);
             res.send(`Error: ${error}`);
@@ -46,4 +61,3 @@ app.get('/', async (req, res) => {
     app.listen(3000, () => {
     console.log('Server listening on port 3000');
     });
-
