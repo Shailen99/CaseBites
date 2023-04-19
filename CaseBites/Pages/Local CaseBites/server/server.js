@@ -3,6 +3,9 @@ const cors = require('cors');
 const { connectToDatabase } = require('./db');
 const bodyParser = require('body-parser');
 
+const bcrypt = require("bcryptjs");
+const saltRounds = 10;
+
 const app = express();
 app.use(cors());
 
@@ -14,13 +17,8 @@ app.post('/validateUser', async (req, res) => {
     const database = await connectToDatabase();
     // Make sure the database object is defined before accessing it
     if (database) {
-      const user = {
-        _name: req.body._name,
-        _pass: req.body._pass
-      };
-
-      const result = await database.collection('UserInformation').findOne(user);
-      if (result) {
+      const user = await database.collection('UserInformation').findOne( {_name : req.body._name} );
+      if (user && bcrypt.compare(req.body._pass, user._pass)) {
         return res.status(200).send('Login successful');
       }
       else {
@@ -48,6 +46,20 @@ app.post('/addUser', async (req, res) => {
       _name: req.body._name,
       _pass: req.body._pass
     };
+
+    bcrypt.genSalt(saltRounds, function (saltError, salt) {
+      if (saltError) {
+        throw saltError
+      } else {
+        bcrypt.hash(user._pass, salt, function(hashError, hash) {
+          if (hashError) {
+            throw hashError
+          } else {
+            user._pass = hash;
+          }
+        })
+      }
+    })
 
     const database = await connectToDatabase();
 
