@@ -20,8 +20,8 @@ const Login = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          _name: username,
-          _pass: password
+          name: username,
+          pass: password
         })
       })
       .then(response => {

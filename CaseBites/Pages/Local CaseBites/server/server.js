@@ -17,8 +17,8 @@ app.post('/validateUser', async (req, res) => {
     const database = await connectToDatabase();
     // Make sure the database object is defined before accessing it
     if (database) {
-      const user = await database.collection('UserInformation').findOne( {_name : req.body._name} );
-      if (user && bcrypt.compare(req.body._pass, user._pass)) {
+      const user = await database.collection('UserInformation').findOne( {name : req.body.name} );
+      if (user && bcrypt.compare(req.body.pass, user.pass)) {
         return res.status(200).send('Login successful');
       }
       else {
@@ -43,19 +43,22 @@ app.post('/addUser', async (req, res) => {
     }
     
     const user = {
-      _name: req.body._name,
-      _pass: req.body._pass
+      name: req.body.name,
+      pass: req.body.pass,
+      onMealPlan: req.body.onMealPlan,
+      caseCash: req.body.caseCash,
+      mealPlan: req.body.mealPlan
     };
 
     bcrypt.genSalt(saltRounds, function (saltError, salt) {
       if (saltError) {
         throw saltError
       } else {
-        bcrypt.hash(user._pass, salt, function(hashError, hash) {
+        bcrypt.hash(user.pass, salt, function(hashError, hash) {
           if (hashError) {
             throw hashError
           } else {
-            user._pass = hash;
+            user.pass = hash;
           }
         })
       }
@@ -64,7 +67,7 @@ app.post('/addUser', async (req, res) => {
     const database = await connectToDatabase();
 
     // if the username is already taken, don't add the new user
-    const existingUsername = await database.collection('UserInformation').findOne({ _name: user._name });
+    const existingUsername = await database.collection('UserInformation').findOne({ name: user.name });
     if (existingUsername) {
       return res.status(409).send('Username already exists');
     }

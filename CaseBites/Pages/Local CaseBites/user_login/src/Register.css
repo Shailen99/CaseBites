@@ -88,3 +88,8 @@
   align-items: center;
   color: white;
 }
+
+.mealPlanSelection {
+  width: 215px;
+  font-size: 25px;
+}
