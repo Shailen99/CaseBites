@@ -6,7 +6,8 @@ const app = express();
 
 
 app.get('/', async (req, res) => {
-    const uri = "mongodb+srv://RestaurantAdmin:CaseBite123@casebites.rejmzyj.mongodb.net/test";
+    require("dotenv").config({ path: "./config.env" });
+    const uri = process.env.URI;
     const client = new MongoClient(uri, { useNewUrlParser: true });
 
     app.engine('html', require('ejs').renderFile);
@@ -38,57 +39,63 @@ app.get('/', async (req, res) => {
         const UserInformation = client.db('CaseBites').collection('UserInformation');
         const user = await UserInformation.findOne({ name: userName });
 
-        var caseCash = user.caseCash;
+        var caseCash = 0;
         var portSwipes = 0;
         var mealSwipes = 0;
-        var reviewPoints = user.points;
+        var reviewPoints = 0;
 
-        if(user.onMealPlan) {
-          if(user.mealPlan == "Unlimited") {
-            portSwipes = 7;
-            mealSwipes = "Unlimited";
-
+        try {
+          caseCash = user.caseCash;
+          reviewPoints = user.points;
+          if(user.onMealPlan) {
+            if(user.mealPlan == "Unlimited") {
+              portSwipes = 7;
+              mealSwipes = "Unlimited";
+  
+            }
+            else if(user.mealPlan == "10 Classic") {
+              portSwipes = 3;
+              mealSwipes = 10;
+  
+            }
+            else if(user.mealPlan == "14 Classic") {
+              portSwipes = 3;
+              mealSwipes = 14;
+  
+            }
+            else if(user.mealPlan == "17 Classic") {
+              portSwipes = 3;
+              mealSwipes = 17;
+  
+            }
+            else if(user.mealPlan == "10 Halal/Kosher") {
+              portSwipes = 3;
+              mealSwipes = 10;
+  
+            }
+            else if(user.mealPlan == "14 Halal/Kosher") {
+              portSwipes = 3;
+              mealSwipes = 14;
+  
+            }
+            else if(user.mealPlan == "Apartment 5/3/150") {
+              portSwipes = 3;
+              mealSwipes = 5;
+  
+            }
+            else if(user.mealPlan == "Apartment 7/5/100") {
+              portSwipes = 3;
+              mealSwipes = 7;
+  
+            }
+            else {
+              portSwipes = 3;
+              mealSwipes = 5;
+  
+            }
           }
-          else if(user.mealPlan == "10 Classic") {
-            portSwipes = 3;
-            mealSwipes = 10;
-
-          }
-          else if(user.mealPlan == "14 Classic") {
-            portSwipes = 3;
-            mealSwipes = 14;
-
-          }
-          else if(user.mealPlan == "17 Classic") {
-            portSwipes = 3;
-            mealSwipes = 17;
-
-          }
-          else if(user.mealPlan == "10 Halal/Kosher") {
-            portSwipes = 3;
-            mealSwipes = 10;
-
-          }
-          else if(user.mealPlan == "14 Halal/Kosher") {
-            portSwipes = 3;
-            mealSwipes = 14;
-
-          }
-          else if(user.mealPlan == "Apartment 5/3/150") {
-            portSwipes = 3;
-            mealSwipes = 5;
-
-          }
-          else if(user.mealPlan == "Apartment 7/5/100") {
-            portSwipes = 3;
-            mealSwipes = 7;
-
-          }
-          else {
-            portSwipes = 3;
-            mealSwipes = 5;
-
-          }
+        }
+        catch (error) {
         }
 
         res.render(path.join(__dirname+'/map.ejs'),{
