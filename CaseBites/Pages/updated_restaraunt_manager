@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> CaseBites</title>
+    <style>
+        
+        body {
+            background-color: #f3f3f4;
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar{
+            background-color: cornflowerblue;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 160px;
+            padding: 10px;
+            box-sizing: border-box;
+            line-height: 3;
+        }
+        nav u1{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav 1i{
+            margin-bottom: 10px;
+        }
+        nav a{
+            color: #fff;
+            text-decoration: none;
+        }
+        .content{
+
+            display: block;     
+            position: top;
+            margin-left: 270px;
+            margin-bottom: 10px; 
+            color: rgb(64, 106, 184);
+            line-height: 22px;
+            padding: 1px;
+            font-size: 12px;  
+            width: 800px;
+            line-height: 24px;
+            background-color: white;
+            box-sizing: border-box;
+            border-radius: 4px;
+            
+
+
+
+        }
+        .content h1{
+            margin-top: 0;
+        }
+
+    
+        .sidebar button{
+
+            background-color: cornflowerblue; /* Green background */
+            border: 1px solid cornflowerblue; /* Green border */
+            color: white; /* White text */
+            padding: 6px 8px 6px 16px; /* Some padding */
+            font-size: 15px;
+            cursor: pointer; /* Pointer/hand icon */
+            display: block; /* Make the buttons appear below each other */
+            line-height: 2;
+            }
+            
+            .btn-group button:not(:last-child) {
+            border-bottom: none; /* Prevent double borders */
+            }
+
+            /* Add a background color on hover */
+            .btn-group button:hover {
+            background-color: #623e8e; 
+
+        }
+        .image{
+           margin-right: 400px;;
+            margin-top: 25px;
+            margin-left: 270px;
+            width: 600px;
+            height: 200px;
+            background-color: white;
+            object-fit: none;
+            object-position: left top;
+            border: 2px solid #f3f3f4;      
+            display: block;
+
+        }
+        .order {
+           /* margin-right: 125px; /* Same as the width of the sidenav 
+            margin-top: 110px;
+            position: center; 
+            */
+            margin-left: 270px; /* Same as the width of the sidenav */
+            margin-top: 110px;
+            margin-bottom: 100px;
+            font-size: 22px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+            font-weight: bold;
+            background-color: white;
+            display: inline-block;
+            width: 785px;
+            vertical-align: top;
+            border-radius: 4px; 
+
+
+        }
+       
+       .ss{
+            display: inline-block;
+            background-color:white;
+            font-size: 16px;
+            font-family: bold;
+            color: black;
+            position: right;
+            margin-right: 5px;  
+            margin-bottom: 10px;
+            right: -122px;
+            top:200px;
+            width: 300px;
+            position: relative;
+            border-radius: 4px; 
+            padding: 1px 0px 0px 10px;   
+            line-height: 12px;              
+        }
+        .public-profile{
+            display: inline-block;
+            background-color: white;
+            font-size: 16px;
+            font-family: bold;
+            color:black;
+            position: right;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            right: -1200px;
+            top:-358px;
+            width: 300px;
+            position: relative;   
+            border-radius: 4px; 
+            padding: 1px 0px 0px 10px;   
+            line-height: 12px;     
+        }
+        .terms{
+            display: inline-block;
+            background-color: white;
+            font-size: 16px;
+            font-family: bold;
+            color:black;
+            position: right;
+            margin-right: 20px;
+            right: -865px;
+            top:-150px;
+            width: 300px;
+            position: relative;   
+            border-radius: 4px; 
+            padding: 1px 0px 20px 10px;   
+            line-height: 12px;     
+        }        
+        .span-e{
+            font-family: bold;
+            color:black;
+        }
+
+    
+    </style>    
+</head>        
+<body>    
+    <nav>
+        <div class = "sidebar">
+            <li><a href="#"> Dashboard </a></li>
+            <li><a href="#"> View Feedback </a></li>
+            <li><a href="#"> Reviews </a></li>
+            <li><a href="#"> View/Edit Menu </a></li>
+            <li><a href="#"> Working Hours </a></li>   
+            <li><a href="#"> Settings </a></li>        
+            </div>    
+
+    </nav>   
+
+    <div class= "content">               
+        <h1>CaseBites</h1>                 
+        <h2>Restaurant Manager</h2>    
+                    
+    </div>
+<!--</body>
+</html>
+</body>-->
+
+
+<div class= "image">    
+    <center>          
+    <img src="https://www.pbs.org/wgbh/nova/media/images/JWST_hero.width-2000.jpg" alt="Trulli" width="800" height="300">   
+    </center>       
+</div> 
+
+<div class= "order">    
+    <p>Pickup order time<p>   
+        <p>Working Hours<p>  
+            <p>Pop Items<p>
+                <p>Wait time</p>
+                <p>Pay options</p>
+</div> 
+<div class = "ss">
+    <p> Contact information</p>
+    <p> You have no contact information</p>
+    </div>
+
+<div class= "public-profile"> 
+    <p> Public profile </p>
+    <p> View public profile </p> 
+</div> 
+<div class= "terms"> 
+    <p> Terms and agreements </p>
+    <a href="https://www.w3schools.com/">View terms and agreements</a>
+    
+</div>
+
+        </body>
+        </html>
+
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
