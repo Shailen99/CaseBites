@@ -19,9 +19,9 @@ app.get('/', async (req, res) => {
         console.log('Connected to MongoDB');
     
         const RestaurantsInfo = client.db('CaseBites').collection('RestaurantsInfo');
-        const restaurant = RestaurantsInfo.find();
+        const restaurants = RestaurantsInfo.find();
         const data = [];
-        await restaurant.forEach((document) => {
+        await restaurants.forEach((document) => {
           data.push({
             name: document.name,
             location: document.location,
@@ -33,14 +33,64 @@ app.get('/', async (req, res) => {
           });
         });
         
+        //const userId = '6441518e3f9e71240c76c943';
+        const userName = "testUser5"
         const UserInformation = client.db('CaseBites').collection('UserInformation');
-        const User = UserInformation.find();
-        
-        //these constants will be filled by the users information
-        const caseCash = 150;
-        const portSwipes = 3;
-        const mealSwipes = "unlimited";
-        const reviewPoints = 100;
+        const user = await UserInformation.findOne({ name: userName });
+
+        var caseCash = user.caseCash;
+        var portSwipes = 0;
+        var mealSwipes = 0;
+        var reviewPoints = user.points;
+
+        if(user.onMealPlan) {
+          if(user.mealPlan == "Unlimited") {
+            portSwipes = 7;
+            mealSwipes = "Unlimited";
+
+          }
+          else if(user.mealPlan == "10 Classic") {
+            portSwipes = 3;
+            mealSwipes = 10;
+
+          }
+          else if(user.mealPlan == "14 Classic") {
+            portSwipes = 3;
+            mealSwipes = 14;
+
+          }
+          else if(user.mealPlan == "17 Classic") {
+            portSwipes = 3;
+            mealSwipes = 17;
+
+          }
+          else if(user.mealPlan == "10 Halal/Kosher") {
+            portSwipes = 3;
+            mealSwipes = 10;
+
+          }
+          else if(user.mealPlan == "14 Halal/Kosher") {
+            portSwipes = 3;
+            mealSwipes = 14;
+
+          }
+          else if(user.mealPlan == "Apartment 5/3/150") {
+            portSwipes = 3;
+            mealSwipes = 5;
+
+          }
+          else if(user.mealPlan == "Apartment 7/5/100") {
+            portSwipes = 3;
+            mealSwipes = 7;
+
+          }
+          else {
+            portSwipes = 3;
+            mealSwipes = 5;
+
+          }
+        }
+
         res.render(path.join(__dirname+'/map.ejs'),{
           data:data, 
           caseCash:caseCash, 

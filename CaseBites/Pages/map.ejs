@@ -36,8 +36,8 @@
     <div class="well" id="studentInfo">
         <div id="header">Your Info</div>
         <div>CaseCash: <%=caseCash %></div>
-        <div>Portable Swipes Left: <%=portSwipes %></div>
-        <div>Meal Swipes Left: <%=mealSwipes %></div> 
+        <div>Portable Swipes: <%=portSwipes %></div>
+        <div>Meal Swipes: <%=mealSwipes %></div> 
         <div>Review Points: <%=reviewPoints %></div>
     </div>
     <div id="map"></div>
@@ -84,6 +84,9 @@
                     <p>Hours: ${hours}</p>
                     <p>Popular Items: ${popItems}</p>
                     <p>Est. Wait Time: ${waitTime}</p>
+                    <a href="/index.html">
+                        <button>Check Reviews</button>
+                    </a>
                 </div>`;
 
                 var infoWindow = new google.maps.InfoWindow({
@@ -94,7 +97,6 @@
                     infoWindow.open(map, marker);
                 });
             }
-  
             data.forEach(restaurant =>{
                 addMarker(
                     restaurant.name,
@@ -105,7 +107,7 @@
                     restaurant.waitTime,
                     restaurant.img
                 )
-            })   
+            }) 
         }
     </script>
   
