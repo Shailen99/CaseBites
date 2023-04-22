@@ -102,7 +102,8 @@ const Register = () => {
           pass: password,
           onMealPlan: onMealPlan,
           caseCash: caseCash,
-          mealPlan: mealPlan
+          mealPlan: mealPlan,
+          points: 0
         })
       })
       .then(response => {

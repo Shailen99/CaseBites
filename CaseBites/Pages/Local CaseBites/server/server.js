@@ -47,7 +47,8 @@ app.post('/addUser', async (req, res) => {
       pass: req.body.pass,
       onMealPlan: req.body.onMealPlan,
       caseCash: req.body.caseCash,
-      mealPlan: req.body.mealPlan
+      mealPlan: req.body.mealPlan,
+      points: req.body.points
     };
 
     bcrypt.genSalt(saltRounds, function (saltError, salt) {

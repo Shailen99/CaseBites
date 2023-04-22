@@ -10,7 +10,7 @@ async function connectToDatabase() {
     await client.connect();
     console.log('Connected to MongoDB');
  
-    const database = client.db('UserLogins');
+    const database = client.db('CaseBites');
     console.log(`Database "${database.databaseName}" is ready!`);
 
     return database;
