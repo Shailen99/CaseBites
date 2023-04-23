@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { connectToDatabase } = require('./db');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const bcrypt = require("bcryptjs");
 const saltRounds = 10;
@@ -11,6 +12,85 @@ app.use(cors());
 
 // Use bodyParser middleware to parse JSON request bodies
 app.use(bodyParser.json());
+
+app.get('/restaurantData', async (req, res) => {
+  const database = await connectToDatabase();
+  const RestaurantsInfo = database.collection("RestaurantsInfo");
+  const restaurants = RestaurantsInfo.find();
+  const data = [];
+
+  await restaurants.forEach((document) => {
+    data.push({
+      name: document.name,
+      location: document.location,
+      payOptions: document.payOptions,
+      hours: document.hours ,
+      popItems: document.popItems,
+      waitTime: document.waitTime,
+      img: document.img
+    });
+  });
+
+  res.status(200).send(data);
+});
+
+app.get('/userInformation', async (req, res) => {
+  const database = await connectToDatabase();
+  const userName = "testUser5"
+  const UserInformation = database.collection('UserInformation');
+  const user = await UserInformation.findOne({ name: userName });
+
+  const userInfo = {
+    caseCash: 0,
+    portSwipes: 0,
+    mealSwipes: 0,
+    reviewPoints: 0
+  }
+
+  userInfo.reviewPoints = user.points;
+  userInfo.caseCash = user.caseCash;
+
+  if(user.onMealPlan) {
+    if (user.mealPlan == "Unlimited") {
+      userInfo.portSwipes = 7;
+      userInfo.mealSwipes = "Unlimited";
+    }
+    else if (user.mealPlan == "10 Classic") {
+      userInfo.portSwipes = 3;
+      userInfo.mealSwipes = 10;
+    }
+    else if (user.mealPlan == "14 Classic") {
+      userInfo.portSwipes = 3;
+      userInfo.mealSwipes = 14;
+    }
+    else if (user.mealPlan == "17 Classic") {
+      userInfo.portSwipes = 3;
+      userInfo.mealSwipes = 17;
+    }
+    else if (user.mealPlan == "10 Halal/Kosher") {
+      userInfo.portSwipes = 3;
+      userInfo.mealSwipes = 10;
+    }
+    else if (user.mealPlan == "14 Halal/Kosher") {
+      userInfo.portSwipes = 3;
+      userInfo.mealSwipes = 14;
+    }
+    else if (user.mealPlan == "Apartment 5/3/150") {
+      userInfo.portSwipes = 3;
+      userInfo.mealSwipes = 5;
+    }
+    else if (user.mealPlan == "Apartment 7/5/100") {
+      userInfo.portSwipes = 3;
+      userInfo.mealSwipes = 7;
+    }
+    else {
+      userInfo.portSwipes = 3;
+      userInfo.mealSwipes = 5;
+    }
+  }
+
+  res.json(userInfo);
+});
 
 app.post('/validateUser', async (req, res) => {
   try {
