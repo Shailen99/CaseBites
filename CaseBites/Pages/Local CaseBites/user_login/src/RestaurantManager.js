@@ -43,7 +43,7 @@ const RestaurantManager = () => {
             <a href="/"> View/Edit Menu </a>
           </li>
           <li>
-            <a href="/"> Working Hours </a>
+            <a href="/restaurantSettings"> Edit Your Profile </a>
           </li>
           <li>
             <a href="/"> Settings </a>
