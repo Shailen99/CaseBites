@@ -26,7 +26,8 @@ const Login = () => {
       })
       .then(response => {
         if (response.ok) {
-          navigate('/Map');
+          localStorage.setItem('username', JSON.stringify(username));
+          navigate('/');
         } 
         else if (response.status === 401) {
           setError('Invalid username and/or password');

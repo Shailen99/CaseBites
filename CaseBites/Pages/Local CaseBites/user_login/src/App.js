@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import Map from './Map';
+import Navbar from './Navbar';
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
@@ -23,11 +24,12 @@ function App() {
   }, []);
 
   if (userInfo == null || restaurantData == null) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Map userInfo={userInfo} restaurantData={restaurantData} />} />
         <Route path="/login" element={<Login />} />

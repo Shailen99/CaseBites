@@ -109,6 +109,7 @@ const Register = () => {
       .then(response => {
         if (response.ok) {
           toastr.success('Registration successful!');
+          localStorage.setItem('username', JSON.stringify(username));
           navigate('/');
         } 
         else if (response.status === 409) {
