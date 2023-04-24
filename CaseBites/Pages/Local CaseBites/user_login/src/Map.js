@@ -1,24 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Map.css';
 
-const Map = () => {
-  const [userInfo, setUserInfo] = useState(null);
-  const [restaurantData, setRestaurantData] = useState(null);
-  const [map, setMap] = useState(null);
+window.initMap = function() {}
 
-  useEffect(() => {
-    fetch('http://localhost:3000/userInformation')
-      .then(response => response.json())
-      .then(data => setUserInfo(data))
-      .catch(error => console.error(error));
-  }, []);
-
-  useEffect(() => {
-    fetch('http://localhost:3000/restaurantData')
-      .then(response => response.json())
-      .then(data => setRestaurantData(data))
-      .catch(error => console.error(error));
-  }, []);
+const Map = ({ userInfo, restaurantData }) => {
+  const [createdMap, setCreatedMap] = useState(null);
 
   useEffect(() => {
     const options = {
@@ -50,19 +36,71 @@ const Map = () => {
 
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY";
+      script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY&callback=initMap";
       script.async = true;
       script.onload = () => {
-        const map = new window.google.maps.Map(mapDiv, options);
-        setMap(map);
+        const createdMap = new window.google.maps.Map(mapDiv, options);
+        setCreatedMap(createdMap);
       };
       document.body.appendChild(script);
     }
   }, []);
 
-  if (userInfo == null || restaurantData == null) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    if (createdMap == null) {
+      return;
+    }
+
+    function addMarker(name, location, payOptions, hours, popItems, waitTime, img){
+      const coords = location;
+      img = img.replace(/&amp;/g, "&");
+      const [lat, lng] = coords.split(", ");
+      const formattedCoords = { lat: Number(lat), lng: Number(lng) };
+      location = formattedCoords;
+  
+      var marker = new window.google.maps.Marker({
+        position: location,
+        map: createdMap,
+        icon: img
+      })
+      
+      const contentString = 
+        `<div>
+          <h1>${name}</h1>
+          <p>Payment Options: ${payOptions}</p>
+          <p>Hours: ${hours}</p>
+          <p>Popular Items: ${popItems}</p>
+          <p>Est. Wait Time: ${waitTime}</p>
+          <a href="/index.html">
+            <button>Check Reviews</button>
+          </a>
+        </div>`;
+  
+      var infoWindow = new window.google.maps.InfoWindow({
+        content: contentString
+      });
+  
+      marker.addListener('click', function() {
+        infoWindow.open(createdMap, marker);
+      });
+    }
+    try {
+      restaurantData.forEach(restaurant =>{
+        addMarker(
+          restaurant.name,
+          restaurant.location,
+          restaurant.payOptions,
+          restaurant.hours,
+          restaurant.popItems,
+          restaurant.waitTime,
+          restaurant.img
+        )
+      })
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }, [restaurantData, createdMap]);
 
   return (
     <div>
