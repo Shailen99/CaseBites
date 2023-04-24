@@ -111,6 +111,12 @@ const Map = ({ userInfo, restaurantData }) => {
         <div>Portable Swipes: {userInfo.portSwipes}</div>
         <div>Meal Swipes: {userInfo.mealSwipes}</div> 
         <div>Review Points: {userInfo.reviewPoints}</div>
+        <div>
+          <button className="mapButton">Used Portable Swipe</button>
+        </div>
+        <div>
+          <button className="mapButton">Used Meal Swipe</button>
+        </div>
       </div>
     </div>
   );

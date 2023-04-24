@@ -4,6 +4,7 @@ import Register from './Register';
 import Login from './Login';
 import Map from './Map';
 import Navbar from './Navbar';
+import RestaurantManager from './RestaurantManager';
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
@@ -42,6 +43,7 @@ function App() {
         <Route path="/" element={<Map userInfo={userInfo} restaurantData={restaurantData} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/restaurantManager" element={<RestaurantManager />} />
       </Routes>
     </Router>
   );

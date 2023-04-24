@@ -13,26 +13,13 @@ app.use(cors());
 // Use bodyParser middleware to parse JSON request bodies
 app.use(bodyParser.json());
 
-app.get('/restaurantData', async (req, res) => {
+app.post('/getResName', async (req, res) => {
   const database = await connectToDatabase();
-  const RestaurantsInfo = database.collection("RestaurantsInfo");
-  const restaurants = RestaurantsInfo.find();
-  const data = [];
-
-  await restaurants.forEach((document) => {
-    data.push({
-      name: document.name,
-      location: document.location,
-      payOptions: document.payOptions,
-      hours: document.hours ,
-      popItems: document.popItems,
-      waitTime: document.waitTime,
-      img: document.img
-    });
-  });
-
-  res.status(200).send(data);
-});
+  const RestaurantManagers = database.collection("RestaurantManagers");
+  const resName = await RestaurantManagers.findOne( {username : req.body.username} )
+  
+  res.send(resName);
+})
 
 app.post('/userInformation', async (req, res) => {
   const database = await connectToDatabase();
@@ -96,6 +83,27 @@ app.post('/userInformation', async (req, res) => {
   }
 
   res.json(userInfo);
+});
+
+app.get('/restaurantData', async (req, res) => {
+  const database = await connectToDatabase();
+  const RestaurantsInfo = database.collection("RestaurantsInfo");
+  const restaurants = RestaurantsInfo.find();
+  const data = [];
+
+  await restaurants.forEach((document) => {
+    data.push({
+      name: document.name,
+      location: document.location,
+      payOptions: document.payOptions,
+      hours: document.hours ,
+      popItems: document.popItems,
+      waitTime: document.waitTime,
+      img: document.img
+    });
+  });
+
+  res.status(200).send(data);
 });
 
 app.post('/validateUser', async (req, res) => {
