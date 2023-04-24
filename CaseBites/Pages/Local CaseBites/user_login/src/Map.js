@@ -43,24 +43,25 @@ const Map = () => {
       ]
     }
 
-    const mapDiv = document.getElementById('map');
-    if (!mapDiv) {
-      return;
-    }
+    if (document.getElementById('map') == null) {
+      const mapDiv = document.createElement('div');
+      mapDiv.id = "map";
+      document.body.appendChild(mapDiv);
 
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY&callback=initMap";
-    script.async = true;
-    script.onload = () => {
-      const map = new window.google.maps.Map(mapDiv, options);
-      setMap(map);
-    };
-    document.body.appendChild(script);
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB2zN4XibhG6DPOVT9Xy_smKHsgNEXMwGY";
+      script.async = true;
+      script.onload = () => {
+        const map = new window.google.maps.Map(mapDiv, options);
+        setMap(map);
+      };
+      document.body.appendChild(script);
+    }
   }, []);
 
   if (userInfo == null || restaurantData == null) {
-    return <div id='map'></div>;
+    return <div>Loading...</div>;
   }
 
   return (
@@ -73,7 +74,6 @@ const Map = () => {
         <div>Meal Swipes: {userInfo.mealSwipes}</div> 
         <div>Review Points: {userInfo.reviewPoints}</div>
       </div>
-      <div id="map"></div>
     </div>
   );
 }
