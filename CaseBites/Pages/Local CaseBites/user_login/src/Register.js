@@ -85,6 +85,11 @@ const Register = () => {
     }
   }
 
+  function cleanCaseCash() {
+    if (!caseCash || caseCash < 0)
+      setCaseCash(0);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     validateUsername();
@@ -92,6 +97,7 @@ const Register = () => {
     validateConfirmPassword();
     validateCaseCash();
     if (handleSubmitHelper()) {
+      cleanCaseCash();
       fetch('http://localhost:3000/addUser', {
         method: 'POST',
         headers: {

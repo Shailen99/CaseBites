@@ -39,3 +39,7 @@ nav button {
   cursor: pointer;
   float: right;
 }
+
+nav button:hover {
+  background-color: darkred;
+}

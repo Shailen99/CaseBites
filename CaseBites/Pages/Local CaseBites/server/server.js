@@ -34,11 +34,9 @@ app.get('/restaurantData', async (req, res) => {
   res.status(200).send(data);
 });
 
-app.get('/userInformation', async (req, res) => {
+app.post('/userInformation', async (req, res) => {
   const database = await connectToDatabase();
-  const userName = "testUser5"
-  const UserInformation = database.collection('UserInformation');
-  const user = await UserInformation.findOne({ name: userName });
+  const userName = JSON.parse(req.body.username);
 
   const userInfo = {
     caseCash: 0,
@@ -46,6 +44,14 @@ app.get('/userInformation', async (req, res) => {
     mealSwipes: 0,
     reviewPoints: 0
   }
+
+  if (userName == null) {
+    res.json(userInfo);
+    return;
+  }
+
+  const UserInformation = database.collection('UserInformation');
+  const user = await UserInformation.findOne({ name: userName });
 
   userInfo.reviewPoints = user.points;
   userInfo.caseCash = user.caseCash;

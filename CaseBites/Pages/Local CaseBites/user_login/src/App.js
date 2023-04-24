@@ -10,7 +10,15 @@ function App() {
   const [restaurantData, setRestaurantData] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/userInformation')
+    fetch('http://localhost:3000/userInformation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: localStorage.getItem('username')
+        })
+    })
       .then(response => response.json())
       .then(data => setUserInfo(data))
       .catch(error => console.error(error));
