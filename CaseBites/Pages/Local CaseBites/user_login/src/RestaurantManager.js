@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./RestaurantManager.css";
+import { useNavigate } from "react-router-dom";
 
 const RestaurantManager = () => {
   const [restaurantData, setRestaurantData] = useState(null);
 
   const username = "test1";
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `/restaurantSettings`;
+    navigate(path);
+  };
 
   useEffect(() => {
     fetch("http://localhost:3000/getResName", {
@@ -28,64 +34,45 @@ const RestaurantManager = () => {
   return (
     <div>
       <title>CaseBites</title>
-      <nav>
-        <div className="sidebar">
-          <li>
-            <a href="/"> Dashboard </a>
-          </li>
-          <li>
-            <a href="/"> View Feedback </a>
-          </li>
-          <li>
-            <a href="/"> Reviews </a>
-          </li>
-          <li>
-            <a href="/"> View/Edit Menu </a>
-          </li>
-          <li>
-            <a href="/restaurantSettings"> Edit Your Profile </a>
-          </li>
-          <li>
-            <a href="/"> Settings </a>
-          </li>
-        </div>
-      </nav>
-      <div className="content">
+      <div className="titleSection">
         <h1>CaseBites</h1>
         <h2>{restaurantData.Name}</h2>
       </div>
-      <div className="image">
-        <img
-          src="https://www.pbs.org/wgbh/nova/media/images/JWST_hero.width-2000.jpg"
-          alt="Trulli"
-          width="800"
-          height="300"
-        />
-      </div>
-      <div className="order">
-        <h1>Pickup Order Time</h1>
-        <h3>Working Hours</h3>
-        <p>{restaurantData.currentWorkingHours}</p>
-        <h3>Popular Items</h3>
-        <p>{restaurantData.popularItems}</p>
-        <h3>Wait Time</h3>
-        <p>{restaurantData.waitTime}</p>
-        <h3>Pay Options</h3>
-        <p>{restaurantData.paymentOptions}</p>
-      </div>
+      <div className="wrapper">
+        <div className="orderSection">
+          <h1>Order Management</h1>
+          <h3>Working Hours</h3>
+          <p>{restaurantData.currentWorkingHours}</p>
+          <h3>Popular Items</h3>
+          <p>{restaurantData.popularItems}</p>
+          <h3>Wait Time</h3>
+          <p>{restaurantData.waitTime}</p>
+          <h3>Pay Options</h3>
+          <p>{restaurantData.paymentOptions}</p>
+          <button
+            onClick={routeChange}
+            id="myButton"
+            class="float-left submit-button"
+          >
+            Edit Your Settings
+          </button>
+        </div>
 
-      <div className="ss">
-        <p>Your Contact information</p>
-        <p>Email: {restaurantData.email}</p>
-        <p>Phone Number: {restaurantData.phoneNum}</p>
-      </div>
-      <div className="public-profile">
-        <p> Public profile </p>
-        <p> View public profile </p>
-      </div>
-      <div className="terms">
-        <p> Terms and agreements </p>
-        <a href="https://www.w3schools.com/">View terms and agreements</a>
+        <div className="Personal">
+          <h1>Your Information</h1>
+          <h3>Your Contact Unformation</h3>
+          <p>
+            <b>Email:</b> {restaurantData.email}
+          </p>
+          <p>
+            <b>Phone Number:</b> {restaurantData.phoneNum}
+          </p>
+          <h3> Public Profile </h3>
+          <a href="/">
+            {" "}
+            <p> View public profile </p>
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -1,190 +1,60 @@
 body {
-  background-color: #f3f3f4;
-  margin: 0;
-  padding: 0;
+  background-color: #74B4D8;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.sidebar {
-  background-color: cornflowerblue;
-  color: #fff;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 200px;
-  padding: 10px;
-  box-sizing: border-box;
-  line-height: 3;
-  font-size: 18px;
-}
-
-nav u1 {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav l1 {
-  margin-bottom: 10px;
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.content {
-  display: block;     
-  position: top;
-  margin-left: 270px;
-  margin-bottom: 10px; 
-  color: rgb(64, 106, 184);
-  line-height: 22px;
-  padding: 1px;
-  font-size: 12px;  
-  width: 800px;
-  line-height: 24px;
-  background-color: white;
-  box-sizing: border-box;
-  border-radius: 4px;
-}
-
-.content h1 {
-  margin-top: 0;
-}
-
-.sidebar button {
-  background-color: cornflowerblue;
-  border: 1px solid cornflowerblue; 
-  color: white;
-  padding: 6px 8px 6px 16px; 
-  font-size: 15px;
-  cursor: pointer; /* Pointer/hand icon */
-  display: block; /* Make the buttons appear below each other */
-  line-height: 2;
-}
-
-.btn-group button:not(:last-child) {
-  border-bottom: none; 
-}
-
-.btn-group button:hover {
-  background-color: #623e8e; 
-}
-
-.image {
-  margin-right: 400px;;
-  margin-top: 25px;
-  margin-left: 270px;
+.titleSection {
+  background-color: #FFFF;
   width: 600px;
-  height: 200px;
-  background-color: white;
-  object-fit: none;
-  object-position: left top;
-  border: 2px solid #f3f3f4;      
-  display: block;
+  border-radius: 25px;
+  margin: auto;
+
 }
 
-.order {
-  margin-left: 270px; 
-  margin-top: 110px;
-  margin-bottom: 100px;
-  font-size: 22px;  
-  padding: 0px 10px;
-  font-weight: bold;
-  background-color: white;
-  display: inline-block;
-  width: 785px;
-  vertical-align: top;
-  border-radius: 4px; 
+
+.orderSection {
+ /* display: inline-block;
+  width: 400px;
+  height: 400px;
+  background: #ce8888;*/
+  text-align: center;
+  border-width: 2px;
+  width: 400px;
+  float:left;
+  border-style: solid;
+  border-color: black;
+  background:#FFFF;
+  margin-left:100px;
+  border-radius: 25px;
+
+
+
 }
 
-.ss {
-  background-color:white;
-  font-size: 16px;
-  font-family: bold;
-  color: black;
-  float: right;
-  margin-right: 5px;  
-  margin-bottom: 10px;
-  border-radius: 4px; 
-  padding: 1px 0px 0px 10px; 
-  line-height: 12px;
-  width: 300px;
-  position: relative;
+.orderSection h3 {
+  color: #74B4D8;
 }
 
-.public-profile {
-  background-color:white;
-  font-size: 16px;
-  font-family: bold;
-  color: black;
-  float: right;
-  margin-right: 5px;  
-  margin-bottom: 10px;
-  border-radius: 4px; 
-  padding: 1px 0px 0px 10px; 
-  line-height: 12px;
-  width: 300px;
-  top: -360px;
-  position: relative;
+
+.Personal {
+  /*
+  width: 400px;
+  height: 400px;
+  background: #ce8888;
+*/
+display: inline-block;
+
+text-align: center;
+border-width: 2px;
+width: 400px;
+border-radius: 25px;
+
+border-style: solid;
+border-color: black;
+background:#FFFF;
+overflow: hidden;
 }
-
-.terms {
-  background-color: white;
-  font-size: 16px;
-  font-family: bold;
-  color:black;
-  position: right;
-  float: right;
-  top:-250px;
-  left: 312px;
-  width: 300px;
-  position: relative;   
-  border-radius: 4px; 
-  padding: 1px 0px 20px 10px;   
-  line-height: 12px;     
-}        
-
-.span-e {
-  font-family: bold;
-  color:black;
-}*/
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+.Personal h3 {
+  color: #74B4D8;
 }

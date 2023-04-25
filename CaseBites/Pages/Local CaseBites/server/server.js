@@ -98,6 +98,11 @@ app.post("/userInformation", async (req, res) => {
   const UserInformation = database.collection("UserInformation");
   const user = await UserInformation.findOne({ name: userName });
 
+  if (user == null) {
+    res.json(userInfo);
+    return;
+  }
+
   userInfo.reviewPoints = user.points;
   userInfo.caseCash = user.caseCash;
   userInfo.portSwipes = user.portSwipes;
@@ -127,6 +132,28 @@ app.get("/restaurantData", async (req, res) => {
   });
 
   res.status(200).send(data);
+});
+
+app.post("/validateRestaurant", async (req, res) => {
+  try {
+    const database = await connectToDatabase();
+    // Make sure the database object is defined before accessing it
+    if (database) {
+      const user = await database
+        .collection("RestaurantLogIn")
+        .findOne({ name: req.body.name });
+      if (user && bcrypt.compare(req.body.pass, user.pass)) {
+        return res.status(200).send("Login successful");
+      } else {
+        return res.status(401).send("Invalid credentials");
+      }
+    } else {
+      res.status(500).send("Database connection error");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
 });
 
 app.post("/validateUser", async (req, res) => {

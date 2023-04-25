@@ -6,6 +6,8 @@ import Map from "./Map";
 import Navbar from "./Navbar";
 import RestaurantManager from "./RestaurantManager";
 import RestaurantSetting from "./RestaurantSettings";
+import RestaurantLogIn from "./RestaurantLogIn";
+import ChangeLogInPage from "./ChangeLogInPage";
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
@@ -45,7 +47,10 @@ function App() {
           path="/"
           element={<Map userInfo={userInfo} restaurantData={restaurantData} />}
         />
+        <Route path="/changeLogInPage" element={<ChangeLogInPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/reslogin" element={<RestaurantLogIn />} />
+
         <Route path="/register" element={<Register />} />
         <Route path="/restaurantManager" element={<RestaurantManager />} />
         <Route path="/restaurantSettings" element={<RestaurantSetting />} />
