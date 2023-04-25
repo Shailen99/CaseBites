@@ -1,0 +1,42 @@
+const blogsSchema = {
+		title: String,
+		short_description: String,
+		description: String,
+		image: String,
+	}
+
+	const Blogs = mongoose.model('Blogs', blogsSchema);
+
+
+
+	app.get('/blog', getBlogs, renderForm);
+
+	function getBlogs(req, res, next){
+		Blogs.find({}, function(err, blogs){
+			if (err) next(err);
+			res.locals.restaurantList = blogs;
+			next();
+		})
+	};
+
+
+	function renderForm(req, res){
+		
+		res.render('blogs.ejs', { restaurantList: res.locals.restaurantList });
+		console.log(res.locals.restaurantList);
+	};
+
+
+	<title><%= restaurantList[0].title %></title>
+
+	<main class="restaurant-list">
+  <% restaurantList.forEach(category => {
+    if (category.title === "The Jolly Scholar") { %>
+      <div class="category">
+        <img src="/uploads/blog_images/<%= category.image %>">
+        <p><%= category.short_description %></p>
+        <p><%= category.description %></p>
+      </div>
+      <% }
+    }) %>
+  </main>
