@@ -200,6 +200,29 @@ app.post('/addUser', async (req, res) => {
   }
 });
 
+
+app.post('/getResSettings', async(req,res) =>{
+  const database = await connectToDatabase();
+  const RestaurantManagers = database.collection("RestaurantManagers");
+  const resName = await RestaurantManagers.findOne( {username : req.body.username} )
+  console.log(resName._id);
+
+  if(req.body.username == null) //check if user name empty
+  {
+    return;
+  }
+  await RestaurantManagers.createIndex( { name: "test" } );
+
+  //now change user information in restaurant managers
+});
+
+app.post('/changeResSettings', async (req, res) => {
+  const database = await connectToDatabase();
+  const RestaurantManagers = database.collection("RestaurantManagers");
+  const resName = await RestaurantManagers.findOne( {username : req.body.username} )
+  
+})
+
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });
