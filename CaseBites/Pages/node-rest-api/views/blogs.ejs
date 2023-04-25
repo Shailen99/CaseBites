@@ -4,17 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hello</title>
+    <title><%= blogsList[0].title %></title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
     <header>
-      <h1>Hello</h1>
+      <h1><%= blogsList[0].title %></h1>
     </header>
 
-  <h1><%= blogsList[0].title %></h1>
-  <p><%= blogsList[0].description %></p>
+  <main class="restaurant-list">
+  <% blogsList.forEach(category => {
+    if (category.title === "The Jolly Scholar") { %>
+      <div class="category">
+        <img src="/uploads/blog_images/<%= category.image %>">
+        <p><%= category.short_description %></p>
+        <p><%= category.description %></p>
+      </div>
+      <% }
+    }) %>
+  </main>
+
+  <p>Please leave any reviews of the restaurant below!</p>
 
 
   <form action="blogs/6446e0bff25f7f14484ad9b8/comments/create" method="POST">
@@ -24,12 +35,14 @@
     </div>
     <button type="submit">Submit</button>
   </form>
+  <br>
 
   <% for (var j = 0; j < blogsList[0].blog_comments.length; j++) { %>
     <div class="comment-box">
        <p><%= blogsList[0].blog_comments[j] %></p>
+       <button class="delete-button" type="submit">Delete</button>
+       <button class="update-button" type="submit">Update</button>
     </div>
-      <br>
   <% } %>
 
 

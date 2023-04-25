@@ -6,7 +6,7 @@ body {
 header {
   background-color: #333;
   color: white;
-  padding: 20px;
+  padding: 5px;
 }
 
 .restaurant-list {
@@ -62,9 +62,43 @@ form button {
 }
 
 .comment-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* change align-items to flex-start */
   border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 10px;
+  padding: 50px 10px;
   margin-bottom: 0px;
   max-width: 80%;
   margin-left: 10px;
+  position: relative; /* add position: relative */
 }
+
+.comment-box p {
+  margin: 0;
+}
+
+.comment-box button {
+  border: none;
+  background: none;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  position: absolute; /* add position: absolute */
+  top: 10px; /* adjust top and right values as needed */
+  right: 10px;
+}
+
+.comment-box .delete-button {
+  /* remove this rule */
+}
+
+.comment-box button + button { /* add this rule */
+  margin-left: 10px;
+  right: 70px; /* adjust right value to position the update button */
+}
+.comment-box button:hover {
+  text-decoration: underline;
+  opacity: 0.7;
+}
+
