@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./RestaurantManager.css";
 import { useNavigate } from "react-router-dom";
+import CommentSection from "./CommentSection";
 
 const RestaurantManager = () => {
   const [restaurantData, setRestaurantData] = useState(null);
@@ -12,20 +13,18 @@ const RestaurantManager = () => {
     navigate(path);
   };
 
-  useEffect(() => {
-    fetch("http://localhost:3000/getResName", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => setRestaurantData(data))
-      .catch((error) => console.error(error));
-  }, []);
+  fetch("http://localhost:3000/getResName", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => setRestaurantData(data))
+    .catch((error) => console.error(error));
 
   if (restaurantData == null) {
     return;
@@ -52,7 +51,7 @@ const RestaurantManager = () => {
           <button
             onClick={routeChange}
             id="myButton"
-            class="float-left submit-button"
+            className="float-left submit-button"
           >
             Edit Your Settings
           </button>
@@ -73,6 +72,8 @@ const RestaurantManager = () => {
             <p> View public profile </p>
           </a>
         </div>
+
+        <CommentSection className="comments" resName={restaurantData.Name} />
       </div>
     </div>
   );

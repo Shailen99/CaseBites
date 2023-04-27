@@ -154,30 +154,39 @@ const Map = ({ userInfo, restaurantData }) => {
     setPortSwipes(userInfo.mealPlanPortSwipes);
   }
 
+  const loggedIn = localStorage.getItem("username") !== null;
+
   return (
     <div>
       <title>My Google Maps</title>
       <div className="well" id="studentInfo">
+        {!loggedIn && (
+          <div style={{ fontSize: "24px" }}>
+            Log in to track your meal plan.
+          </div>
+        )}
         <div id="header">Your Info</div>
         <div>CaseCash: {userInfo.caseCash}</div>
         <div>Portable Swipes: {portSwipes}</div>
         <div>Meal Swipes: {mealSwipes}</div>
         <div>Review Points: {userInfo.reviewPoints}</div>
-        <div>
-          <button className="mapButton" onClick={decrementPortSwipe}>
-            Used Portable Swipe
-          </button>
-        </div>
-        <div>
-          <button className="mapButton" onClick={decrementMealSwipe}>
-            Used Meal Swipe
-          </button>
-        </div>
-        <div>
-          <button className="mapButton" onClick={resetSwipes}>
-            Reset Swipes
-          </button>
-        </div>
+        <center>
+          <div>
+            <button className="mapButton" onClick={decrementPortSwipe}>
+              Used Portable Swipe
+            </button>
+          </div>
+          <div>
+            <button className="mapButton" onClick={decrementMealSwipe}>
+              Used Meal Swipe
+            </button>
+          </div>
+          <div>
+            <button className="mapButton" onClick={resetSwipes}>
+              Reset Swipes
+            </button>
+          </div>
+        </center>
       </div>
     </div>
   );

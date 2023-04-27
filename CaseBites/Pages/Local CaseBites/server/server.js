@@ -12,6 +12,47 @@ app.use(cors());
 // Use bodyParser middleware to parse JSON request bodies
 app.use(bodyParser.json());
 
+app.post("/getComments", async (req, res) => {
+  const database = await connectToDatabase();
+  const CommentsDB = database.collection("Comments");
+  const restaurantName = JSON.parse(req.body.resName);
+  const commentsCollection = CommentsDB.find({ resName: restaurantName });
+
+  const comments = [];
+
+  await commentsCollection.forEach((document) => {
+    comments.push({
+      username: document.username,
+      comment: document.comment,
+    });
+  });
+
+  res.status(200).send(comments);
+});
+
+app.post("/addComment", async (req, res) => {
+  const database = await connectToDatabase();
+  const CommentsDB = database.collection("Comments");
+  const resName = JSON.parse(req.body.resName);
+
+  const comment = {
+    resName: resName,
+    username: JSON.parse(req.body.username),
+    comment: JSON.parse(req.body.comment),
+  };
+
+  let result = false;
+
+  try {
+    result = await CommentsDB.insertOne(comment);
+    console.log(`Added comment with ID: ${result.insertedId}`);
+  } catch (error) {
+    console.error(error);
+  }
+
+  if (result) res.status(200).send();
+});
+
 app.post("/resetSwipes", async (req, res) => {
   const database = await connectToDatabase();
   const UserInformation = database.collection("UserInformation");
