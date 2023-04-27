@@ -17,12 +17,37 @@ function Navbar() {
     navigate(0);
   };
 
+  //Check what user type it is
+  var userTrue = false;
+  var resTrue = false;
+  let userType = localStorage.getItem("userType");
+  var userTrue = false;
+  var resTrue = false;
+  if (userType == "restaurantAccount") {
+    resTrue = true;
+    userTrue = false;
+  } else if (userType == "customerAccount") {
+    userTrue = true;
+    resTrue = false;
+  }
+
   return (
     <nav>
       <ul>
         <li>
           <a href="/">Map</a>
         </li>
+        {resTrue && !userTrue && (
+          <li>
+            <a href="/restaurantManager">Restaurant Manager</a>
+          </li>
+        )}
+        {userTrue && !resTrue && (
+          <li>
+            <a href="/">User Profile</a>
+          </li>
+        )}
+
         {!username && (
           <li className="right">
             <a href="/register">Register</a>

@@ -1,52 +1,53 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import './Register.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./Register.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!error && username !== '' && password !== '') {
-      fetch('http://localhost:3000/validateUser', {
-        method: 'POST',
+    if (!error && username !== "" && password !== "") {
+      fetch("http://localhost:3000/validateUser", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: username,
-          pass: password
+          pass: password,
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            localStorage.setItem("username", JSON.stringify(username));
+            localStorage.setItem("userType", "customerAccount");
+
+            navigate("/");
+            window.location.reload();
+          } else if (response.status === 401) {
+            setError("Invalid username and/or password");
+          } else {
+            console.log(
+              "Fetch was not successful. Status code: " + response.status
+            );
+          }
         })
-      })
-      .then(response => {
-        if (response.ok) {
-          localStorage.setItem('username', JSON.stringify(username));
-          navigate('/');
-          window.location.reload();
-        } 
-        else if (response.status === 401) {
-          setError('Invalid username and/or password');
-        }
-        else {
-          console.log('Fetch was not successful. Status code: ' + response.status);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      })
-    }
-    else {
-      if (username === '') {
-        setUsernameError('Username field cannot be empty');
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      if (username === "") {
+        setUsernameError("Username field cannot be empty");
       }
-      if (password === '') {
-        setPasswordError('Password field cannot be empty');
+      if (password === "") {
+        setPasswordError("Password field cannot be empty");
       }
     }
   };
@@ -75,7 +76,9 @@ const Login = () => {
     <div className="register">
       <form className="register-form" onSubmit={handleSubmit}>
         <h1 className="register-heading">User Login</h1>
-        <p className="error-message" style={{ display: "block" }}>{error}</p>
+        <p className="error-message" style={{ display: "block" }}>
+          {error}
+        </p>
         <div className="register-input">
           <input
             type="text"
@@ -86,7 +89,11 @@ const Login = () => {
             spellCheck="false"
             onChange={handleUsernameChange}
           />
-          {usernameError && <p className="error-message" style={{ display: "block" }}>{usernameError}</p>}
+          {usernameError && (
+            <p className="error-message" style={{ display: "block" }}>
+              {usernameError}
+            </p>
+          )}
         </div>
         <div className="register-input">
           <input
@@ -96,15 +103,26 @@ const Login = () => {
             value={password}
             onChange={handlePasswordChange}
           />
-          {passwordError && <p className="error-message" style={{ display: "block" }}>{passwordError}</p>}
+          {passwordError && (
+            <p className="error-message" style={{ display: "block" }}>
+              {passwordError}
+            </p>
+          )}
         </div>
-        <button className="register-button" type="submit">Login</button>
+        <button className="register-button" type="submit">
+          Login
+        </button>
         <div className="form-text">
-          <p style={{ fontSize: "15px" }}>Don't have an account?&nbsp;<Link style={{ fontSize: "15px", color: "#90EE90" }} to="/register">Register Here!</Link></p>
+          <p style={{ fontSize: "15px" }}>
+            Don't have an account?&nbsp;
+            <Link style={{ fontSize: "15px", color: "#90EE90" }} to="/register">
+              Register Here!
+            </Link>
+          </p>
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default Login;

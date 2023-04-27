@@ -27,6 +27,7 @@ const RestaurantLogIn = () => {
           if (response.ok) {
             localStorage.setItem("username", JSON.stringify(username));
             navigate("/restaurantManager");
+            localStorage.setItem("userType", "restaurantAccount");
             window.location.reload();
           } else if (response.status === 401) {
             setError("Invalid username and/or password");

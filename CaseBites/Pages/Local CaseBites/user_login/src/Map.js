@@ -72,12 +72,12 @@ const Map = ({ userInfo, restaurantData }) => {
       });
 
       const contentString = `<div>
-          <h1>${name}</h1>
+          <h1 id="resName">${name}</h1>
           <p>Payment Options: ${payOptions}</p>
           <p>Hours: ${hours}</p>
           <p>Popular Items: ${popItems}</p>
           <p>Est. Wait Time: ${waitTime}</p>
-          <a href="/index.html">
+          <a href="/restaurantManager">
             <button>Check Reviews</button>
           </a>
         </div>`;
@@ -88,6 +88,7 @@ const Map = ({ userInfo, restaurantData }) => {
 
       marker.addListener("click", function () {
         infoWindow.open(createdMap, marker);
+        console.log(infoWindow.content);
       });
     }
     try {
