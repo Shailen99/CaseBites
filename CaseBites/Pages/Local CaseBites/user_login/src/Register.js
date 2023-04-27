@@ -292,7 +292,7 @@ const Register = () => {
         <div className="form-text">
           <p style={{ fontSize: "15px" }}>
             Already have an account?&nbsp;
-            <Link style={{ fontSize: "15px", color: "#90EE90" }} to="/">
+            <Link style={{ fontSize: "15px", color: "#90EE90" }} to="/login">
               Login Here!
             </Link>
           </p>

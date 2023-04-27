@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./CommentSection.css";
+import toastr from "toastr";
 
 const CommentSection = ({ resName }) => {
   const [comments, setComments] = useState(null);
@@ -36,6 +37,22 @@ const CommentSection = ({ resName }) => {
       username.className = "username";
       username.innerText = comment.username;
 
+      const reportButton = document.createElement("button");
+      reportButton.className = "report";
+      reportButton.textContent = "Report Comment";
+      reportButton.addEventListener("click", function () {
+        toastr.error("Comment Reported");
+      });
+      username.appendChild(reportButton);
+
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "delete";
+      deleteButton.textContent = "Delete Your Comment";
+      deleteButton.addEventListener("click", function () {
+        toastr.success("Not Yet Implemented");
+      });
+      username.appendChild(deleteButton);
+
       const commentItself = document.createElement("div");
       commentItself.className = "comment";
       commentItself.innerText = comment.comment;
@@ -61,7 +78,7 @@ const CommentSection = ({ resName }) => {
       },
       body: JSON.stringify({
         resName: JSON.stringify(restaurantName),
-        username: JSON.stringify(username),
+        username: username,
         comment: JSON.stringify(text),
       }),
     })
@@ -76,7 +93,7 @@ const CommentSection = ({ resName }) => {
 
   return (
     <div className="section">
-      <h1>Reviews</h1>
+      <h1>User Reviews</h1>
       {"\n"}
       <div id="heading"></div>
       <hr />

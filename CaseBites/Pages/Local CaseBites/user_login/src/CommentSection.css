@@ -31,3 +31,19 @@
   margin-left: 50px;
   margin-bottom: 15px; 
 }
+
+.report {
+  margin-left: 10px;
+  font-size: 15px;
+  background-color: red;
+  color: black;
+  font-weight: bold;
+}
+
+.delete {
+  margin-left: 10px;
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+  background-color: orange;
+}
